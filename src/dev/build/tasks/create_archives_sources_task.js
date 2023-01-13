@@ -38,14 +38,6 @@ export const CreateArchivesSourcesTask = {
       });
 
       log.debug('Generic build source copied into', platform.getName(), 'specific build directory');
-
-      // copy node.js install
-      await scanCopy({
-        source: getNodeDownloadInfo(config, platform).extractDir,
-        destination: build.resolvePathForPlatform(platform, 'node'),
-      });
-
-      log.debug('Node.js copied into', platform.getName(), 'specific build directory');
     }));
   }
 };

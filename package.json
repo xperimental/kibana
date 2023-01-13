@@ -82,7 +82,7 @@
     "uiFramework:documentComponent": "cd packages/kbn-ui-framework && yarn documentComponent",
     "kbn:watch": "node scripts/kibana --dev --logging.json=false",
     "build:types": "tsc --p tsconfig.types.json",
-    "kbn:bootstrap": "yarn build:types && node scripts/register_git_hook"
+    "kbn:bootstrap": "yarn build:types"
   },
   "repository": {
     "type": "git",
@@ -425,7 +425,7 @@
     "zlib": "^1.0.5"
   },
   "engines": {
-    "node": "10.15.2",
+    "node": "10.24.0",
     "yarn": "^1.10.1"
   }
 }

@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import { deleteAll, copyAll, exec } from '../lib';
-import { getNodeDownloadInfo } from './nodejs';
+import { deleteAll, exec } from '../lib';
+import { resolve } from 'path';
 
 export const OptimizeBuildTask = {
   description: 'Running optimizer',
@@ -27,10 +27,10 @@ export const OptimizeBuildTask = {
     const tempNodeInstallDir = build.resolvePath('node');
     const platform = config.getPlatformForThisOs();
 
-    // copy extracted node for this platform into the build temporarily
-    log.debug('Temporarily installing node.js for', platform.getNodeArch());
-    const { extractDir } = getNodeDownloadInfo(config, platform);
-    await copyAll(extractDir, tempNodeInstallDir);
+    // link system node into build/node/bin directory
+    await exec(log, './hack/link-node.sh', [ resolve(tempNodeInstallDir, 'bin') ], {
+      cwd: config.resolveFromRepo('.'),
+    });
 
     const kibanaScript = platform.isWindows()
       ? '.\\bin\\kibana.bat'
