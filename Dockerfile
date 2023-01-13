@@ -20,7 +20,7 @@ RUN npm install -g yarn
 
 COPY . .
 
-RUN yarn kbn bootstrap
+RUN yarn kbn bootstrap --oss
 
 RUN node scripts/build --oss --skip-os-packages --release
 
