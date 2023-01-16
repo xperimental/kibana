@@ -58,6 +58,7 @@ ENV ELASTICSEARCH_URL=https://elasticsearch.openshift-logging.svc.cluster.local:
 ARG LOCAL_REPO
 
 COPY --from=builder /build/build/oss/kibana-6.8.1-linux-x86_64/ ${HOME}/
+COPY --from=builder /build/hack/opendistro_security_kibana_plugin-0.10.0.4/ ${HOME}/plugins/opendistro_security_kibana_plugin-0.10.0.4/
 
 RUN chmod -R og+w ${HOME}/
 
