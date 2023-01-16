@@ -22,7 +22,7 @@ COPY . .
 
 RUN yarn kbn bootstrap --oss
 
-RUN node scripts/build --oss --skip-os-packages --release
+RUN node scripts/build --oss --skip-os-packages --skip-archives --release
 
 FROM nodejs10
 
