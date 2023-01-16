@@ -57,12 +57,7 @@ ENV ELASTICSEARCH_URL=https://elasticsearch.openshift-logging.svc.cluster.local:
 
 ARG LOCAL_REPO
 
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/kibana-oss-6.8.1 ${HOME}/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/opendistro_security_kibana_plugin-0.10.0.4/ ${HOME}/plugins/opendistro_security_kibana_plugin-0.10.0.4/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/handlebars/ ${HOME}/node_modules/handlebars/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/minimist/ ${HOME}/node_modules/minimist/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/ua-parser-js-1.0.2/ ${HOME}/node_modules/ua-parser-js/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/vendored_tar_src/fbjs-0.8.18/ ${HOME}/node_modules/fbjs/
+COPY --from=builder /build/build/oss/kibana-6.8.1-linux-x86_64/ ${HOME}/
 
 RUN chmod -R og+w ${HOME}/
 
