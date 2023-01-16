@@ -61,11 +61,11 @@ COPY --from=builder /build/build/oss/kibana-6.8.1-linux-x86_64/ ${HOME}/
 
 RUN chmod -R og+w ${HOME}/
 
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/probe/ /usr/share/kibana/probe/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/kibana.yml ${KIBANA_CONF_DIR}/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/run.sh ${HOME}/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/utils ${HOME}/
-COPY --from=builder $REMOTE_SOURCES_DIR/kibana6/app/kibana/module_list.sh ${HOME}/
+COPY --from=builder /build/hack/probe/ /usr/share/kibana/probe/
+COPY --from=builder /build/hack/kibana.yml ${KIBANA_CONF_DIR}/
+COPY --from=builder /build/hack/run.sh ${HOME}/
+COPY --from=builder /build/hack/utils ${HOME}/
+COPY --from=builder /build/hack/module_list.sh ${HOME}/
 
 RUN sed -i -e 's/"node":.*/"node": "'$(${NODE_PATH}/node --version | sed 's/v//')'"/' package.json && \
     mkdir -p node && \
