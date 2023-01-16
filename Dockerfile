@@ -4,7 +4,7 @@ FROM registry.redhat.io/ubi8:8.7-1054 AS nodejs10
 ENV NODEJS_VERSION=10
 
 RUN yum -y module enable nodejs:$NODEJS_VERSION && \
-    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper" && \
+    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper git" && \
     ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
     ln -s /usr/libexec/platform-python /usr/bin/python3 && \
     yum remove -y $INSTALL_PKGS && \
