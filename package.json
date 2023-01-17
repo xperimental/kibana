@@ -243,6 +243,7 @@
     "ts-optchain": "^0.1.1",
     "tslib": "^1.9.3",
     "type-detect": "^4.0.8",
+    "ua-parser-js": "1.0.2",
     "ui-select": "0.19.6",
     "url-loader": "1.1.2",
     "uuid": "3.0.1",
