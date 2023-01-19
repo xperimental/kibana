@@ -22,8 +22,7 @@ COPY . .
 
 RUN yarn kbn bootstrap --oss
 
-RUN node scripts/build --oss --skip-os-packages --skip-archives --release && \
-    rm -r build/oss/kibana-6.8.1-linux-x86_64/node/
+RUN node scripts/build --oss --skip-os-packages --skip-archives --release
 
 FROM nodejs10
 
