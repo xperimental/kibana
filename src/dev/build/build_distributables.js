@@ -96,8 +96,6 @@ export async function buildDistributables(options) {
    */
   await run(VerifyEnvTask);
   await run(CleanTask);
-  //await run(downloadFreshNode ? DownloadNodeBuildsTask : VerifyExistingNodeBuildsTask);
-  //await run(ExtractNodeBuildsTask);
 
   /**
    * run platform-generic build tasks
