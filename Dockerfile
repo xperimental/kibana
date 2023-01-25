@@ -69,12 +69,7 @@ COPY --from=builder /build/hack/run.sh ${HOME}/
 COPY --from=builder /build/hack/utils ${HOME}/
 COPY --from=builder /build/hack/module_list.sh ${HOME}/
 
-RUN sed -i -e 's/"node":.*/"node": "'$(${NODE_PATH}/node --version | sed 's/v//')'"/' package.json && \
-    mkdir -p node && \
-    ln -s ${NODE_PATH} node/bin
-RUN bin/kibana --optimize
-
-WORKDIR ${HOME}
+RUN node src/cli --optimize
 
 CMD ["./run.sh"]
 
