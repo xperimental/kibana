@@ -16,7 +16,7 @@ FROM nodejs10 AS builder
 
 WORKDIR /build/
 
-RUN npm install -g yarn
+COPY hack/yarn-1.22.19.js /usr/local/bin/yarn
 
 COPY . .
 
