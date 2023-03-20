@@ -20,6 +20,10 @@ COPY hack/yarn-1.22.19.js /usr/local/bin/yarn
 
 COPY . .
 
+ENV CHROMEDRIVER_SKIP_DOWNLOAD true
+
+RUN hack/yarn-set-registry.sh
+
 RUN yarn kbn bootstrap --oss
 
 RUN node scripts/build --oss --skip-os-packages --skip-archives --release
