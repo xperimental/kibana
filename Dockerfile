@@ -1,18 +1,16 @@
 #@follow_tag(registry.redhat.io/ubi8:latest)
-FROM registry.redhat.io/ubi8:8.7-1054 AS nodejs10
+FROM registry.redhat.io/ubi8:8.7-1090 AS builder
 
 ENV NODEJS_VERSION=10
 
 RUN yum -y module enable nodejs:$NODEJS_VERSION && \
-    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper git" && \
+    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper git python2" && \
     ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
     ln -s /usr/libexec/platform-python /usr/bin/python3 && \
     yum remove -y $INSTALL_PKGS && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
-
-FROM nodejs10 AS builder
 
 WORKDIR /build/
 
@@ -28,7 +26,19 @@ RUN yarn kbn bootstrap --oss
 
 RUN node scripts/build --oss --skip-os-packages --skip-archives --release
 
-FROM nodejs10
+#@follow_tag(registry.redhat.io/ubi8:latest)
+FROM registry.redhat.io/ubi8:8.7-1090
+
+ENV NODEJS_VERSION=10
+
+RUN yum -y module enable nodejs:$NODEJS_VERSION && \
+    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper git" && \
+    ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
+    ln -s /usr/libexec/platform-python /usr/bin/python3 && \
+    yum remove -y $INSTALL_PKGS && \
+    yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+    rpm -V $INSTALL_PKGS && \
+    yum -y clean all --enablerepo='*'
 
 ENV HOME=/opt/app-root/src
 
