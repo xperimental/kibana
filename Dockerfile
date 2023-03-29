@@ -19,9 +19,12 @@ COPY hack/yarn-1.22.19.js /usr/local/bin/yarn
 COPY . .
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD true
-ENV npm_config_nodedir /usr/include/node/
+ENV CYPRESS_INSTALL_BINARY 0
+ENV GECKODRIVER_SKIP_DOWNLOAD true
+ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
 
-RUN hack/yarn-set-registry.sh
+RUN hack/yarn-set-registry.sh && \
+    yarn config set nodedir /usr/include/node/
 
 RUN yarn kbn bootstrap --oss
 
