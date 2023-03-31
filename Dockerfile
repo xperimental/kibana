@@ -25,7 +25,7 @@ ENV GECKODRIVER_SKIP_DOWNLOAD true
 ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
 
 RUN hack/yarn-set-registry.sh && \
-    yarn config set nodedir /usr/include/node/
+    yarn config set nodedir /usr/
 
 RUN yarn kbn bootstrap --oss
 
