@@ -4,7 +4,7 @@ FROM registry.redhat.io/ubi8:8.8-854 AS builder
 ENV NODEJS_VERSION=10
 
 RUN yum -y module enable nodejs:$NODEJS_VERSION && \
-    INSTALL_PKGS="nodejs npm nodejs-nodemon nss_wrapper git python2 gcc-c++" && \
+    INSTALL_PKGS="nodejs nodejs-devel npm nodejs-nodemon nss_wrapper git python2 gcc-c++" && \
     ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
     ln -s /usr/libexec/platform-python /usr/bin/python3 && \
     yum remove -y $INSTALL_PKGS && \
@@ -23,7 +23,8 @@ ENV CYPRESS_INSTALL_BINARY 0
 ENV GECKODRIVER_SKIP_DOWNLOAD true
 ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
 
-RUN hack/yarn-set-registry.sh
+RUN hack/yarn-set-registry.sh && \
+    yarn config set nodedir /usr/
 
 RUN yarn kbn bootstrap --oss
 
