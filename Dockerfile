@@ -23,6 +23,8 @@ ENV CYPRESS_INSTALL_BINARY 0
 ENV GECKODRIVER_SKIP_DOWNLOAD true
 ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
 
+RUN hack/yarn-set-registry.sh
+
 RUN yarn kbn bootstrap --oss
 
 RUN node scripts/build --oss --skip-os-packages --skip-archives --release
